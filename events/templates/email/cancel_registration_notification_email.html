@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомление об отмене записи на мероприятие</title>
+</head>
+<body>
+    <h1>Уведомление об отмене записи на мероприятие: {{ event.title }}</h1>
+    <p>Привет, {{ event.organizer.name }}!</p>
+    <p>Ваша запись на мероприятие "{{ event.title }}" была отменена.</p>
+    <p>Если у вас возникли вопросы, пожалуйста, свяжитесь с организатором мероприятия: {{ event.organizer.name }}</p>
+    <p>Контактный email: {{ event.organizer.email }}</p>
+</body>
+</html>
