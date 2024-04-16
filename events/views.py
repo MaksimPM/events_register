@@ -1,15 +1,11 @@
-from django.shortcuts import render
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from events.models import Event, Registration
 from events.serializers import EventSerializer, RegistrationSerializer
-from events.tasks import send_event_notification, send_registration_notification, send_cancel_registration_notification
-
-
-def index(request):
-    return render(request, 'events/index.html')
+from events.tasks import send_event_notification, send_registration_notification, send_notify_registration_cancel
+from users.permissions import IsOwnerProfile
 
 
 class EventListCreateAPIView(generics.ListCreateAPIView):
@@ -39,16 +35,21 @@ class RegisterToEventAPIView(generics.CreateAPIView):
         send_registration_notification.delay(registration.id)
 
 
+class RegisterListAPIView(generics.ListAPIView):
+    serializer_class = RegistrationSerializer
+    queryset = Registration.objects.all()
+    permission_classes = [IsOwnerProfile]
+
+
 class CancelRegistrationAPIView(generics.DestroyAPIView):
     queryset = Registration.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        event_id = self.kwargs['event_id']
-        return self.queryset.get(event_id=event_id, user=self.request.user)
+    permission_classes = [IsOwnerProfile]
 
     def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        send_cancel_registration_notification.delay(instance.id)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        try:
+            registration_id = self.kwargs['registration_id']
+            registration = Registration.objects.get(pk=registration_id)
+            registration.delete()
+            return Response({"message": "Регистрация успешно отменена"}, status=status.HTTP_204_NO_CONTENT)
+        except Registration.DoesNotExist:
+            return Response({"error": "Регистрация не найдена"}, status=status.HTTP_404_NOT_FOUND)
