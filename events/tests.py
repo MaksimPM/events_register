@@ -13,7 +13,7 @@ class EventAPITestCase(TestCase):
 
     def test_create_event(self):
         # Тест успешного создания мероприятия
-        response = self.client.post('', {
+        response = self.client.post('/events/', {
             'title': 'Test Event',
             'description': 'This is a test event',
             'date': '2024-04-15T12:00:00Z',
@@ -24,7 +24,7 @@ class EventAPITestCase(TestCase):
 
     def test_create_event_missing_fields(self):
         # Тест создания мероприятия с недостающими полями
-        response = self.client.post('', {
+        response = self.client.post('/events/', {
             'title': 'Test Event',
             'description': 'This is a test event',
         })
@@ -32,7 +32,7 @@ class EventAPITestCase(TestCase):
 
     def test_get_events(self):
         # Тест успешного получения списка мероприятий
-        response = self.client.get('')
+        response = self.client.get('/events/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_event_detail(self):
@@ -44,6 +44,7 @@ class EventAPITestCase(TestCase):
             location='Test Location',
             organizer=self.user
         )
-        response = self.client.get(f'/{event.pk}/')
+        response = self.client.get(f'/events/{event.pk}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'Test Event')
+

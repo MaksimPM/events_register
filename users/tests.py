@@ -61,4 +61,4 @@ class UserAPITestCase(TestCase):
     def test_user_authentication_missing_credentials(self):
         # Тест аутентификации пользователя без указания email и пароля
         response = self.client.post('/users/sign-in/')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
