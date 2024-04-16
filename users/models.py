@@ -10,7 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='email')
     phone = models.CharField(max_length=35, verbose_name='телефон', **NULLABLE)
     password = models.CharField(max_length=100, **NULLABLE, verbose_name='пароль')
-    JWTToken = models.CharField(max_length=150, **NULLABLE, verbose_name='JWT Token')
+    JWTToken = models.CharField(max_length=250, **NULLABLE, verbose_name='JWT Token')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

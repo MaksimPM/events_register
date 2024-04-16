@@ -1,4 +1,3 @@
-# events/models.py
 from django.db import models
 from django.utils import timezone
 
@@ -30,9 +29,9 @@ class Registration(models.Model):
     registration_date = models.DateTimeField(default=timezone.now, verbose_name='дата записи')
 
     class Meta:
-        unique_together = ['event', 'user']
         verbose_name = 'запись на мероприятие'
         verbose_name_plural = 'записи на мероприятия'
+        ordering = ('pk',)
 
     def __str__(self):
         return f'{self.user} на {self.event} ({self.registration_date})'
