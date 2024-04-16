@@ -1,4 +1,3 @@
-# events/serializers.py
 from rest_framework import serializers
 from events.models import Event, Registration
 

@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['pk', 'name', 'phone', 'email', 'site', 'password', 'JWTToken']
+        fields = ['pk', 'name', 'phone', 'email', 'password', 'JWTToken']
 
     def validate_email(self, value):
         if User.objects.filter(email=value):
