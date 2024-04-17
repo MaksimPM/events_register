@@ -10,11 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['pk', 'name', 'phone', 'email', 'password', 'JWTToken']
 
-    def validate_email(self, value):
-        if User.objects.filter(email=value):
-            raise serializers.ValidationError("Пользователь с таким email уже существует")
-        return value
-
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance
