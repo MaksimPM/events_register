@@ -36,13 +36,11 @@ class UserAPITestCase(TestCase):
         user.set_password(generated_password)
         user.save()
 
-        # Аутентификация пользователя
         response = self.client.post('/users/sign-in/', {
             'email': 'test@example.com',
             'password': generated_password
         })
 
-        # Проверка успешности аутентификации
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('access_token' in response.data)
 
