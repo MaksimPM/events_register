@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from events.models import Event, Registration
 from events.serializers import EventSerializer, RegistrationSerializer
-from events.tasks import send_event_notification, send_registration_notification, send_notify_registration_cancel
+from events.tasks import send_event_notification, send_registration_notification
 from users.permissions import IsOwnerProfile
 
 
