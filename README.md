@@ -155,7 +155,7 @@ URL: /events/
     "description": "......",
     "date": "......",
     "location": "......",
-    "organizer": <int:pk>
+    "organizer": user.pk
 }  
 
 Ответ:
@@ -181,7 +181,7 @@ URL: /events/<int:pk>/
     "description": "......",
     "date": "......",
     "location": "......",
-    "organizer": <int:pk>
+    "organizer": user.pk
 } 
 
 Ответ:
@@ -201,8 +201,8 @@ URL: /<int:event_id>/register/
 Пример запроса:
 
 {
-    "user": <int:palette_id>,
-    "event": "......"
+    "user": user.pk,
+    "event": event.pk
 } 
 
 Ответ:
