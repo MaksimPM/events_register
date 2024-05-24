@@ -1,4 +1,4 @@
-<h1 align="center">MilonAsk Test</h1> 
+<h1 align="center">Events Register</h1> 
   
  Основной стек проекта:
   
