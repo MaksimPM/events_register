@@ -1,4 +1,7 @@
 <h1 align="center">Events Register</h1> 
+
+<h2 align="center">Сервис для регистрации на мероприятие</h2> 
+
   
  Основной стек проекта:
   
